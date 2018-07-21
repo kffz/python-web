@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+        <body>
+                <!-- Start of Page Container -->
+                <div class="page-container">
+                        <div class="container">
+                                <div class="row">
+
+                                        <!-- start of page content -->
+                                        <div class="span8 page-content">
+
+                                                <ul class="breadcrumb">
+                                                        <li><a href="#">Knowledge Base Theme</a><span class="divider">/</span></li>
+                                                        <li><a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a> <span class="divider">/</span></li>
+                                                        <li class="active">{{blog.title}}</li>
+                                                </ul>
+
+                                                <article class=" type-post format-standard hentry clearfix">
+
+                                                        <h1 class="post-title"><a href="#">{{blog.title}}</a></h1>
+
+                                                        <div class="post-meta clearfix">
+                                                                <span class="date">{{ blog.pub_date }}</span>
+                                                                <span class="author"><a href="#" title="View all posts in Server &amp; Database">{{ blog.authors.username }}</a></span>
+                                                                <span class="comments"><a href="#" title="Comment on Integrating WordPress with Your Website">{{ blog.comment_set.count }}</a></span>
+                                                                <span class="like-count">{{blog.pingback}}</span>
+                                                        </div><!-- end of post meta -->
+
+                                                        <p>{{ blog.detail|safe }}</p>
+
+                                                        <p>{{ blog.detail|safe }}</p>
+
+                                                        <ul>
+                                                                <li><strong>You accomplish more</strong>. No, you don’t get more done (you’re doing less, after all), but if you do less and focus on the important stuff, you actually achieve better results, more meaningful accomplishments. This is how I’m able to work less but still write hundreds of posts a year (on various sites), create ebooks and courses, and more.</li>
+                                                                <li><strong>You have less anxiety</strong>. When you let go of the distractions and the non-essential, you free yourself from the fear that you need to do these things. You learn that your world doesn’t fall apart when you let these things go.</li>
+                                                                <li><strong>You enjoy life more</strong>. Taking time to really focus on an important task, or enjoy the little things, rather than rushing through them, is much more enjoyable.</li>
+                                                                <li><strong>You create time</strong>. When you do less, all of a sudden you have free time! What can you do with all that time? How about spend some time with loved ones, read, write, make music, exercise, cook healthy meals, start your own business, meditate, do yoga?</li>
+                                                        </ul>
+
+                                                        <h3>Savor Your Tasks</h3>
+
+                                                        <p>I wrote recently about&nbsp;<a href="#">how to savor life</a>&nbsp;… and this applies to your to-do list.</p>
+
+                                                        <ol>
+                                                                <li><strong>Take a breath</strong>. Take a moment to pause in your busy day, and breathe. Pay attention to your breath for a minute, then pay attention to your body, how you’re sitting, whether your jaw is clenched, what is tense.</li>
+                                                                <li><strong>Now consider your day</strong>. What have you done already today? What is on the horizon for the rest of the day? Is there anything you can let go of? Can you create spaces between your tasks? Can you cull your tasks, getting rid of the non-essential, just leaving the best?</li>
+                                                                <li><strong>Learn to know the essential</strong>. It takes time to figure out what tasks give you the most impact on your life, your career, your ability to help others and change the world. But start learning today — pick what you think is most essential, clear some space, and just work on those things. Savor them.</li>
+                                                                <li><strong>Reduce distractions</strong>. Consider going on a digital cleanse — take a day or a week off of social media, news, entertainment/gossip sites, the places you usually spend on distractions. What will you do when you feel like some distraction? Meditate, exercise, create.</li>
+                                                        </ol>
+
+                                                        <p>Breathe. Enjoy the new space. Savor the beauty of doing less.</p>
+
+                                                </article>
+
+                                                <!--<div class="like-btn">
+
+                                                        <form id="like-it-form" action="#" method="post">
+                                                                <span class="like-it ">66</span>
+                                                                <input type="hidden" name="post_id" value="99">
+                                                                <input type="hidden" name="action" value="like_it">
+                                                        </form>
+
+                                                        <span class="tags">
+                                                                <strong>Tags:&nbsp;&nbsp;</strong><a href="#" rel="tag">basic</a>, <a href="#" rel="tag">setting</a>, <a href="http://knowledgebase.inspirythemes.com/tag/website/" rel="tag">website</a>
+                                                        </span>
+
+                                                </div>-->
+                                                <div class="comment-form">
+                                                <form action="{% url 'comment:blog_comment' blog.pk %}" method="post" class="comment-form">
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                                <div class="col-md-6">
+                                                                        <label for="{{ form.name.id_for_label }}">名字：</label>
+                                                                        {{form.name}}
+                                                                        {{form.name.errors}}
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                        <label for="{{ form.content.id_for_label }}">评论：</label>
+                                                                        {{form.content}}
+                                                                        {{form.content.errors}}
+                                                                </div>
+                                                        </div>
+                                                        <div class="form-group margint30">
+                                                                <div class="col-sm-offset-2 col-sm-10">
+                                                                        <button type="submit" class="btn btn-default">提交</button>
+                                                                </div>
+                                                        </div>
+                                                </form>
+                                                <ul class="comment-list list-unstyled">
+                                                        {% for comment in comment_list %}
+                                                        <li class="comment-item">
+                                                                <span class="nickname">{{ comment.name }}</span>
+                                                                <time class="sub-time">{{ comment.pub_date }}</time>
+                                                                <div class="text">
+                                                                        {{ comment.content }}
+                                                                </div>
+                                                        </li>
+                                                        {% empty %}
+                                                        暂无评论
+                                                        {% endfor %}
+                                                </ul>
+                                                <!--end of comment-->
+                                                </div>
+                                                <!-- end of page content -->
+                                                </div>
+{% endblock %}
